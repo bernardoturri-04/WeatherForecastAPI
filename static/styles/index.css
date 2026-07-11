@@ -1,0 +1,149 @@
+* {
+    font-family: ui-sans-serif,-apple-system,system-ui,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,Helvetica,Apple Color Emoji,Arial,Segoe UI Emoji,Segoe UI Symbol;
+    color: #f3dcc6;
+}
+
+body {
+    background-color: #1C1E26;
+}
+
+button {
+    width: 110px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    background-color: #bb7111;
+    color: #ffffff;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+button:hover {
+    background-color: #aa660c;
+}
+button:active {
+    background-color: #885109;
+}
+
+
+.login-form {
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 20px 30px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+.login-form div {
+    margin-bottom: 15px;
+}
+.login-form label {
+    margin-bottom: 10px;
+    display: block;
+}
+input {
+    border: 1px solid #CCCCCC;
+    background-color: #141414;
+    padding: 8px;
+    font-size: 18px;
+    border-radius: 3px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.login-form button {
+    margin-top: 10px;
+    width: 100%;
+    font-size: 20px;
+}
+
+
+.main-div {
+    width: 80%;
+    margin: 0 auto;
+}
+
+
+.user-data {
+    padding: 20px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    max-width: 600px;
+    margin: 0 auto;
+}
+.data-item {
+    display: flex; /* Utilizziamo flexbox per allineare orizzontalmente */
+    align-items: center; /* Allinea verticalmente gli elementi */
+    margin-bottom: 10px;
+}
+.data-item label {
+    font-weight: bold;
+    min-width: 100px; /* Imposta una larghezza minima per l'etichetta */
+    margin-right: 10px; /* Aggiunge spazio tra l'etichetta e il valore */
+    text-align: right; /* Allinea il testo dell'etichetta a destra */
+}
+.data-item .username-span {
+    flex: 1;
+    padding-left: 8px;
+    font-size: 20px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}
+.api-key {
+    flex: 1;
+    user-select: text;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 14px;
+    line-height: 1.5;
+    min-width: 200px;
+}
+.data-item button {
+    margin-left: 5px;
+    font-size: 16px;
+    padding: 9px 0;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.tab-title {
+    text-align: center;
+    font-size:30px;
+    margin:0 0 20px 0;
+}
+
+.buttons-div {
+    align-items: center;
+    font-size: 20px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+ul.example-list li {
+    padding: 5px;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+th {
+    font-size: 20px;
+}
+.method {
+    font-weight: bold;
+    color: #FF7C00;
+}
+.param ul {
+    list-style-type: none;
+    padding: 0;
+}
+.param li {
+    margin-left: 20px;
+}

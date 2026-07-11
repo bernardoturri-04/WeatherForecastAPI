@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyWeather API</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">
+</head>
+<body>
+    <div>
+        <div class="main-div">
+            <form method="post" class="login-form">
+                <h2 class="tab-title">Login</h2>
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                {% if error %}
+                    <p style="color: red;">{{ error }}</p>
+                {% endif %}
+                <div>
+                    <button type="submit" formaction="/login">Login</button>
+                    <button type="submit" formaction="/register">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

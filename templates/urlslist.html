@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyWeather API</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">
+</head>
+<body>
+    <div>
+        <div class="main-div">
+            <h1>Urls list</h1>
+            <table>
+                <tr>
+                    <td>/</td>
+                    <td class="method">GET</td>
+                    <td>Renders the home page</td>
+                </tr>
+                <tr>
+                    <td>/login</td>
+                    <td class="method">GET, POST</td>
+                    <td>Manages user login: renders the login page or handles login form submission</td>
+                </tr>
+                <tr>
+                    <td>/logout</td>
+                    <td class="method">GET</td>
+                    <td>Logs out the user and redirects to the home page</td>
+                </tr>
+                <tr>
+                    <td>/register</td>
+                    <td class="method">GET, POST</td>
+                    <td>Manages user registration: renders the registration page or handles registration form submission</td>
+                </tr>
+                <tr>
+                    <td>/apicalls</td>
+                    <td class="method">GET</td>
+                    <td>Renders api calls page</td>
+                </tr>
+                <tr>
+                    <td>/urlslist</td>
+                    <td class="method">GET</td>
+                    <td>Renders this page</td>
+                </tr>
+                <tr>
+                    <td>/dashboard</td>
+                    <td class="method">GET</td>
+                    <td>Renders the profile page for logged-in users</td>
+                </tr>
+                <tr>
+                    <td>/generatetoken</td>
+                    <td class="method">GET</td>
+                    <td>Generates a fresh JWT access token for the logged-in user (session-based, for convenience)</td>
+                </tr>
+                <tr>
+                    <td>/upgrade</td>
+                    <td class="method">GET</td>
+                    <td>Upgrades the logged-in user's account to premium</td>
+                </tr>
+                <tr>
+                    <td>/downgrade</td>
+                    <td class="method">GET</td>
+                    <td>Downgrades the logged-in user's account back to free</td>
+                </tr>
+            </table>
+
+            <div>
+                <button onclick="window.location.href='/'">Homepage</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

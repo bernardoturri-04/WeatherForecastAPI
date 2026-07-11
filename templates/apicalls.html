@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyWeather API</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">
+</head>
+<body>
+    <div>
+        <div class="main-div">
+            <div>
+                <button onclick="window.location.href='/'">Homepage</button>
+            </div>
+            <h1>API calls list</h1>
+
+            <h2>Authentication</h2>
+            <ul class="example-list">
+                <li>Authenticate with <code>POST /api/auth/login</code> (JSON or form body: <code>username</code>, <code>password</code>). Returns a JWT <code>token</code> valid for 24 hours.</li>
+                <li>Send it on every subsequent call as an HTTP header: <code>Authorization: Bearer &lt;token&gt;</code>.</li>
+                <li>If you're logged in on this site, you can also get a fresh token from the <a href="/dashboard">dashboard</a> ("Generate" button) without re-entering your password.</li>
+            </ul>
+
+            <h2>Rate limits</h2>
+            <ul class="example-list">
+                <li><strong>Anonymous</strong> (no Authorization header): 2 <code>/api/forecast</code> GET requests per day, tracked by IP address.</li>
+                <li><strong>Free</strong> (registered user with a token): 100 <code>/api/forecast</code> GET requests per day, tracked by user id.</li>
+                <li><strong>Premium</strong> (registered user with a token and premium plan): unlimited <code>/api/forecast</code> GET requests, plus every query is automatically saved to your query history (see <code>/api/queries</code> below).</li>
+            </ul>
+
+            <table>
+                <tr>
+                    <th>Url</th>
+                    <th>Methods</th>
+                    <th>Description</th>
+                    <th>Parameters</th>
+                </tr>
+                <tr>
+                    <td>/api/auth/login</td>
+                    <td class="method">POST</td>
+                    <td>Authenticates with username + password and returns a JWT access token.</td>
+                    <td>
+                        <ul>
+                            <li><strong>username</strong> - Account username (required)</li>
+                            <li><strong>password</strong> - Account password (required)</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>/api/forecast</td>
+                    <td class="method">GET, PUT, DELETE</td>
+                    <td>Manages forecast data. GET works with or without a token (see rate limits above). PUT is an upsert (creates if it doesn't exist yet for that placeid+date, otherwise updates it) and always requires a valid token <b>ONLY WORKS WITH ADMIN TOKEN</b>, same as DELETE.</td>
+                    <td>
+                        <ul><span class="method">GET</span>
+                            <li><em>Authorization header optional</em> (enables the free/premium tier and, for premium users, saves the query to history)</li>
+                            <li><strong>placename</strong> - Place name</li>
+                            <li><strong>placeid</strong> - Place ID</li>
+                            <li><strong>date</strong> - Date in ISO format (optional, defaults to today)</li>
+                            <li><strong>time</strong> - Time of day, format 'HH:MM' (optional)</li>
+                            <li><strong>details</strong> - Whether to include additional details (condition description and place name) (optional)</li>
+                        </ul>
+                        <ul><span class="method">PUT</span>
+                            <li><em>Authorization header required</em></li>
+                            <li><strong>placeid</strong> - Place ID</li>
+                            <li><strong>date</strong> - Date in ISO format (required)</li>
+                            <li><strong>condition</strong> - Weather condition id (optional)</li>
+                            <li><strong>rain</strong> - Rain (mm) (optional)</li>
+                            <li><strong>humidity</strong> - Humidity percentage (optional)</li>
+                            <li><strong>wind</strong> - Wind speed (km/h) (optional)</li>
+                            <li><strong>wind_direction</strong> - Wind direction (optional)</li>
+                        </ul>
+                        <ul><span class="method">DELETE</span>
+                            <li><em>Authorization header required</em></li>
+                            <li><strong>forecastid</strong> - Forecast id</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>/api/places</td>
+                    <td class="method">GET, PUT, DELETE</td>
+                    <td>Retrieves place data (any authenticated user). Creating/updating/deleting places requires an admin account.</td>
+                    <td>
+                        <ul>
+                            <li><em>Authorization header required for all methods</em></li>
+                        </ul>
+                        <ul><span class="method">GET</span>
+                            <li><strong>placeid</strong> - Place id</li>
+                            <li><strong>placename</strong> - Place name</li>
+                        </ul>
+                        <ul><span class="method">PUT</span> (admin only)
+                            <li><strong>placeid</strong> - Place id</li>
+                            <li><strong>placename</strong> - Place name</li>
+                            <li><strong>lat</strong> - Latitude (optional)</li>
+                            <li><strong>lon</strong> - Longitude (optional)</li>
+                            <li><strong>coords</strong> - Coordinates 'float,float' (optional)</li>
+                        </ul>
+                        <ul><span class="method">DELETE</span> (admin only)
+                            <li><strong>placeid</strong> - Place id</li>
+                            <li><strong>placename</strong> - Place name</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>/api/conditions</td>
+                    <td class="method">GET</td>
+                    <td>Retrieves weather condition data: supports querying by condition ID</td>
+                    <td>
+                        <ul>
+                            <li><em>Authorization header required</em></li>
+                        </ul>
+                        <ul><span class="method">GET</span>
+                            <li><strong>id</strong> - Condition ID (optional)</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>/api/queries</td>
+                    <td class="method">GET</td>
+                    <td>Premium only. Lists the authenticated user's saved forecast query history (JSON, most recent first).</td>
+                    <td>
+                        <ul>
+                            <li><em>Authorization header required (premium account)</em></li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>/api/queries/&lt;id&gt;</td>
+                    <td class="method">GET</td>
+                    <td>Premium only. Returns the full detail of one saved query, including the original forecast result (JSON).</td>
+                    <td>
+                        <ul>
+                            <li><em>Authorization header required (premium account)</em></li>
+                        </ul>
+                    </td>
+                </tr>
+               <!-- <tr>
+                    <td>/api/alltables</td>
+                    <td class="method">GET</td>
+                    <td>Retrieves all data from all tables in the database (used for developing/debug purposes)</td>
+                    <td></td>
+                </tr> -->
+            </table>
+
+            <h2>Examples</h2>
+            <ul class="example-list">
+                <li><code>curl -X POST http://localhost:5000/api/auth/login -H "Content-Type: application/json" -d "{\"username\":\"premium_demo\",\"password\":\"premium12345\"}"</code></li>
+                <li><code>curl "http://localhost:5000/api/forecast?placeid=1&date=2026-07-01"</code> (anonymous, no token needed, only 2 request per day)</li>
+                <li><code>curl -H "Authorization: Bearer &lt;TOKEN&gt;" "http://localhost:5000/api/forecast?placename=Bruxelles&date=2026-07-01"</code></li>
+                <li><code>curl -H "Authorization: Bearer &lt;TOKEN&gt;" "http://localhost:5000/api/queries"</code> (premium account)</li>
+            </br>for more examples go check README.md
+            </ul>
+            
+            <div>
+                <button onclick="window.location.href='/'">Homepage</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

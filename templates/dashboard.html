@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyWeather API</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">
+</head>
+<body>
+    <div>
+        <div class="main-div">
+            <div class="user-data">
+                <h2 class="tab-title">User Data</h2>
+                <div class="data-item">
+                    <label>Username:</label>
+                    <span class="username-span">{{ username }}</span>
+                </div>
+                <div class="data-item">
+                    <label>Plan:</label>
+                    <span class="username-span">{% if is_premium %}Premium (unlimited requests + saved query history){% else %}Free (limited daily requests){% endif %}</span>
+                </div>
+                <div class="data-item">
+                    <label>Access Token:</label>
+                    <input type="text" id="api-key" class="api-key" value="Click &quot;Generate&quot; to get a JWT access token" onfocus="this.select()" readonly>
+                    <form id="generate-form" action="/generatetoken" method="get">
+                        <button type="submit">Generate</button>
+                    </form>
+                </div>
+                <p style="font-size: 14px;">Use this token as an <code>Authorization: Bearer &lt;token&gt;</code> header when calling the API. It expires after 24 hours; generate a new one when needed. You can also obtain a token programmatically via <code>POST /api/auth/login</code> with your username and password (see the API calls page).</p>
+            </div>
+            <div class="buttons-div">
+                <button onclick="window.location.href='/'">Go Back</button>
+                <button onclick="window.location.href='/logout'">Log-out</button>
+                <button onclick="window.location.href='/apicalls'">View Calls</button>
+                <button onclick="window.location.href='/urlslist'">View Urls</button>
+                {% if is_premium %}
+                <button onclick="window.location.href='/downgrade'">Downgrade</button>
+                {% else %}
+                <button onclick="window.location.href='/upgrade'">Upgrade</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('generate-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/generatetoken', true);
+            xhr.onload = function() {
+                if (xhr.status === 200)
+                    document.getElementById('api-key').value = xhr.responseText;
+                else
+                    document.getElementById('api-key').value = 'Failed with code ' + xhr.status;
+            };
+            xhr.send();
+        });
+    </script>
+</body>
+</html>
