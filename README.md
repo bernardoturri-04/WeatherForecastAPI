@@ -22,7 +22,6 @@ Il progetto è organizzato in moduli/blueprint Flask:
 - `templates/`: template HTML.
 - `static/`: file CSS.
 - `instance/db.db`: database SQLite pre-popolato, incluso nel repo (vedi sezione dedicata sotto).
-- `sample_requests.py`: esempi di codice per effettuare richieste all'API (login + chiamate autenticate).
 
 ## Dipendenze
 
