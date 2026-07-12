@@ -276,7 +276,7 @@ Per creare un nuovo account è rischiesta la sessione web tramite il bottone "ma
 - `/downgrade` (GET, richiede sessione web esiste un bottone dedicato): imposta `is_premium = False` sull'account loggato.
 
 
-## Esempi riproducibili (curl)
+## Esempi riproducibili con curl (i dati utilizzati sono già presenti nel db)
 
 Si possono eseguire questi esempi sia con server locale sia con la versione deployata, cambiando solo `BASE`:
 
