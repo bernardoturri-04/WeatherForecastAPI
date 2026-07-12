@@ -187,7 +187,6 @@ Ogni risposta di `/api/forecast` (GET) include il campo `requests_remaining_toda
 | GET | `/api/conditions` | Sì | Qualsiasi utente autenticato | Recupera una o tutte le condizioni meteo |
 | GET | `/api/queries` | Sì | Solo premium | Lista delle query salvate dell'utente |
 | GET | `/api/queries/<id>` | Sì | Solo premium | Dettaglio di una query salvata |
-| GET | `/api/alltables` | No | Chiunque | Dump di debug di tutte le tabelle |
 
 ### `POST /api/auth/login`
 
